@@ -1361,17 +1361,6 @@ exit:
 }
 
 
-/* Set the xid in the connection status.
- *
- * Simple function to separate the ref stealing semantic and work around
- * davidmalcolm/gcc-python-plugin#109
- */
-STEALS(2) IGNORE_REFCOUNT static void
-conn_set_xid(connectionObject *self, xidObject *xid)
-{
-    self->tpc_xid = xid;
-}
-
 /* conn_tpc_begin -- begin a two-phase commit.
  *
  * The state of a connection in the middle of a TPC is exactly the same
@@ -1403,7 +1392,7 @@ conn_tpc_begin(connectionObject *self, xidObject *xid)
 
     /* The transaction started ok, let's store this xid. */
     Py_INCREF(xid);
-    conn_set_xid(self, xid);
+    self->tpc_xid = (xidObject *)TO_STATE((PyObject *)xid);
 
     return 0;
 }

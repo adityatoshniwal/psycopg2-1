@@ -58,4 +58,6 @@ RAISES HIDDEN PyObject *psyco_set_error(
 
 HIDDEN PyObject *psyco_GetDecimalType(void);
 
+HIDDEN STEALS(1) IGNORE_REFCOUNT BORROWED PyObject *TO_STATE(PyObject* obj);
+
 #endif /* !defined(UTILS_H) */

@@ -474,8 +474,10 @@ psyco_GetDecimalType(void)
  *
  * See davidmalcolm/gcc-python-plugin#109
  */
+#ifdef WITH_CPYCHECKER_RETURNS_BORROWED_REF_ATTRIBUTE
 STEALS(1) IGNORE_REFCOUNT BORROWED PyObject *
 TO_STATE(PyObject* obj)
 {
     return obj;
 }
+#endif
